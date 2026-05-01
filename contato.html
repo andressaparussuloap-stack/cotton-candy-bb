@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Cotton Candy B.B</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header> 
+      <div class="logo">
+          <img src="img/logo.png" alt="Cotton Candy B.B Logo" class="logo-img">
+      </div>
+      <!-- Botão para o Menu Mobile -->
+      <button id="btn-mobile" aria-label="Abrir Menu" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+          ☰
+      </button>
+      <nav>
+          <ul>
+             <li><a href="index.html">Home</a></li>
+             <li><a href="produtos.html">Produtos</a></li>
+             <li><a href="sobre.html">Sobre</a></li>
+             <li><a href="contato.html">Contato</a></li>
+          </ul>
+       </nav>
+    </header>
+
+    <main>
+        <section class="contato-secao">
+            <div class="container-contato">
+                <h1>Fale Conosco</h1>
+                <p>Dúvidas sobre tamanhos ou sobre seu pedido? Estamos aqui para ajudar!</p>
+                
+                <div class="contato-grid">
+                    <div class="contato-imagem-wrapper">
+                        <img src="img/telefone.jpg" alt="Cotton Candy B.B" class="imagem-quadrada">
+                    </div>
+
+                    <div class="contato-lateral-info">
+                        <div class="contato-info">
+                            <h2>Canais de Atendimento</h2>
+                            <div class="info-item">
+                                <strong>WhatsApp:</strong>
+                                <p><a href="https://wa.me/qr/ASNID7NL7IFOP1" class="whatsapp-link" target="_blank">(11) 9 1329-4194</a></p>
+                            </div>
+                            <div class="info-item">
+                                <strong>E-mail:</strong>
+                                <p>contato@cottoncandybb.com.br</p>
+                            </div>
+                            <div class="info-item">
+                                <strong>Horário de Atendimento:</strong>
+                                <p>Segunda a Sexta: 09h às 18h</p>
+                            </div>
+                            <div class="redes-sociais">
+                                <p>Siga-nos nas redes:</p>
+                                <a href="https://www.instagram.com/cotton_candy_brecho_online?utm_source=qr&igsh=NWIycWx0dDRxbDZi">Instagram</a> | <a href="https://www.facebook.com/share/18mieKDDsK/">Facebook</a>
+                            </div>
+                            <!-- Botão Grande de WhatsApp -->
+                            <a href="https://wa.me/qr/ASNID7NL7IFOP1" class="btn-whatsapp-grande" target="_blank">
+                                Entrar em Contato pelo WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Botão flutuante para abrir o carrinho -->
+    <button onclick="toggleCarrinho()" class="btn-carrinho-flutuante">
+        🛒
+    </button>
+
+    <!-- Estrutura do Carrinho Lateral -->
+    <div id="carrinho-lateral">
+        <div class="carrinho-header">
+            <h2>Seu Carrinho</h2>
+            <button onclick="toggleCarrinho()" style="background:none; border:none; font-size:2rem; cursor:pointer; color: #493f64;">&times;</button>
+        </div>
+        <div id="itens-carrinho"></div>
+        <div class="carrinho-footer">
+            <h3>Total: <span id="valor-total">R$ 0,00</span></h3>
+            <button class="btn-finalizar">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

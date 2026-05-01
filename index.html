@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotton Candy B.B - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-page">
+
+    <header> 
+      <div class="logo">
+          <img src="img/logo.png" alt="Cotton Candy B.B Logo" class="logo-img">
+      </div>
+      <!-- Botão para o Menu Mobile -->
+      <button id="btn-mobile" aria-label="Abrir Menu" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+          ☰
+      </button>
+      <nav>
+          <ul>
+             <li><a href="index.html">Home</a></li>
+             <li><a href="produtos.html">Produtos</a></li>
+             <li><a href="sobre.html">Sobre</a></li>
+             <li><a href="contato.html">Contato</a></li>
+                 </ul>
+       </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-content">
+    </section>
+
+    <main>
+        <section class="featured-section">
+            <h2>Destaques da Coleção</h2>
+            <div class="featured-products">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/250" alt="Produto Destaque">
+                    <div class="product-info">
+                        <h3>Conjunto Nuvem</h3>
+                        <p class="preco">R$ 119,90</p>
+                        <button data-link="#">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/250" alt="Produto Destaque">
+                    <div class="product-info">
+                        <h3>Vestido Doce de Leite</h3>
+                        <p class="preco">R$ 145,00</p>
+                        <button data-link="#">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Botão flutuante para abrir o carrinho -->
+    <button onclick="toggleCarrinho()" class="btn-carrinho-flutuante">
+        🛒
+    </button>
+
+    <!-- Estrutura do Carrinho Lateral (O JS precisa disso para funcionar) -->
+    <div id="carrinho-lateral">
+        <div class="carrinho-header">
+            <h2>Seu Carrinho</h2>
+            <button onclick="toggleCarrinho()" style="background:none; border:none; font-size:2rem; cursor:pointer; color: #493f64;">&times;</button>
+        </div>
+        <div id="itens-carrinho">
+            <!-- Itens aparecerão aqui via JavaScript -->
+        </div>
+        <div class="carrinho-footer">
+            <h3>Total: <span id="valor-total">R$ 0,00</span></h3>
+            <button class="btn-finalizar">Finalizar Compra</button>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
