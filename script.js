@@ -71,10 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Converte o texto "R$ 89,90" em um número real 89.90
             const preco = parseFloat(precoTexto.replace(/[^\d,]/g, '').replace(',', '.'));
 
+            // Lógica de Estoque
+            const estoqueMax = parseInt(container.getAttribute('data-estoque')) || 1;
+            const itemExistente = carrinho.find(item => item.nome === nomeProduto);
+            const qtdNoCarrinho = itemExistente ? itemExistente.quantidade : 0;
+
             if (!isNaN(preco)) {
-                // Verifica se o produto já está no carrinho
-                const itemExistente = carrinho.find(item => item.nome === nomeProduto);
-                
+                if (qtdNoCarrinho >= estoqueMax) {
+                    alert("Desculpe, não temos mais unidades deste produto em estoque.");
+                    return;
+                }
+
                 if (itemExistente) {
                     itemExistente.quantidade++; // Apenas aumenta a contagem
                 } else {
@@ -257,19 +264,33 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // --- 10. MOVIMENTO DA LUPA DINÂMICA ---
-    const cardsComLupa = document.querySelectorAll('.card, .product-card');
+    // --- 10. LÓGICA DA LUPA NOS PRODUTOS ---
 
-    cardsComLupa.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            // Calcula a posição do mouse relativa ao card
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Atualiza as variáveis CSS no elemento específico
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
+    // Envolve as imagens em um container para a lupa funcionar (evita ter que editar o HTML de cada produto)
+    document.querySelectorAll('.card img, .product-card img').forEach(img => {
+        if (!img.parentElement.classList.contains('img-container')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'img-container';
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+        }
     });
+
+    // Faz a lupa seguir o movimento do mouse e do toque (mobile)
+    const atualizarPosicaoLupa = (e) => {
+        const isTouch = e.type === 'touchmove';
+        const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+        const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+        const container = e.target.closest('.img-container');
+
+        if (container) {
+            const rect = container.getBoundingClientRect();
+            container.style.setProperty('--mouse-x', `${clientX - rect.left}px`);
+            container.style.setProperty('--mouse-y', `${clientY - rect.top}px`);
+        }
+    };
+
+    document.addEventListener('mousemove', atualizarPosicaoLupa);
+    document.addEventListener('touchmove', atualizarPosicaoLupa, { passive: true });
+
 });

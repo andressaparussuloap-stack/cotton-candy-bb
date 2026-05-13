@@ -1,10 +1,15 @@
 /* --- ESTILOS GERAIS --- */
+body {
+    background-color: #e4f0ff; /* Azul bem clarinho para todo o site */
+    margin: 0;
+}
+
 .home-page {
-    background-color: #e1efff; /* Azul pastel suave para a Home */
+    background-color: #ecf1ff; /* Mantendo a consistência na Home */
 }
 
 header {
-    background: #fbfeff; /* Cor mais clara para melhor leitura */
+    background: #ffffff; /* Cor mais clara para melhor leitura */
     padding: 10px 5%;
     display: flex;
     flex-direction: row; /* Logo e Menu lado a lado no desktop */
@@ -74,9 +79,9 @@ nav li {
 
 /* --- BARRA DE FILTROS / CATEGORIAS --- */
 .filter-bar {
-    background: #fff;
-    padding: 20px 5%;
-    border-bottom: 1px solid #eee;
+    background: #ffffff;
+    padding: 10px 5% 20px 5%; /* Removido padding superior (era 20px) */
+    border-bottom: 1px solid #c5e5f1;
     overflow-x: auto;
     white-space: nowrap;
     position: sticky;
@@ -179,32 +184,51 @@ nav li {
 /* --- CONTAINER DO CARROSSEL --- */
 .carrossel {
     width: 100%;
+    margin: 0 auto; 
     overflow: hidden;
 }
 
 .slider {
     width: 100%;
     overflow: hidden;
+
 }
 
 .slides {
     display: flex;
     width: 300%;
     animation: slide-auto 15s infinite ease-in-out;
+    
 }
 
 .slide {
-    width: 33.3333%;
-    height: 400px; /* controla altura do banner */
-    flex-shrink: 0;
-}
-
-.slide img {
-    width: 100%;
+    width: 33.33%;
     height: 100%;
-    object-fit: cover;
+    float: left;
+    min-height: 150px; /* controla altura do banner */
+    flex-shrink: 0;
+    display: flex;
+    justify-content:flex-start ;
+    align-items: center;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-position:  center center; /* Alinha a imagem à esquerda e centraliza verticalmente */
+    background-size: contain; /* Mantém a imagem inteira visível dentro do espaço */
+    background-origin: content-box; /* ADICIONADA: Garante que a imagem comece dentro da borda, não atrás dela */  
 }
 
+.slide:nth-child(1) {
+    background-color: #926C54; /* Cor para o primeiro banner */
+}
+
+.slide:nth-child(2) {
+    background-color: #565B26; /* Cor para o segundo banner */
+}
+
+.slide:nth-child(3) {
+    background-color: #7CA3B4; /* Cor para o terceiro banner */
+}
+   
 /* ANIMAÇÃO */
 @keyframes slide-auto {
     0% { transform: translateX(0); }
@@ -233,7 +257,7 @@ nav li {
 .featured-products {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    gap: 30px;  
     padding: 0 5%;
     max-width: 1200px;
     margin: 0 auto;  
@@ -241,30 +265,34 @@ nav li {
 
 /* Estilos Compartilhados para Cards (Destaques e Produtos) */
 .card, .product-card {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    background: rgb(255, 255, 255);
+    border-radius: 20px; /* Cantos mais retos para um visual "quadrado" */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.04);
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid #f0f0f0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
     display: flex;
-    position: relative; /* Necessário para posicionar a lupa interna */
+    position: relative;
     flex-direction: column;
 }
 
 .product-info {     
-    padding: 20px;
+    padding: 15px; /* Reduzido para compactar o card verticalmente */
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 .product-info h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #493f64;     
-    margin: 0 0 10px;
+    margin: 0;
+    font-weight: 700;
 }
 .product-info p {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #6db3f8;
-    font-weight: bold;
+    font-weight: 800;
     margin: 0;
 }       
 
@@ -279,51 +307,60 @@ nav li {
 }
 
 .card:hover, .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(109, 179, 248, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(109, 179, 248, 0.12);
     border-color: #6db3f8;
 }
 
-.card img, .product-card img {
+.img-container {
+    position: relative;
+    overflow: hidden;
     width: 100%;
-    height: 300px;
-    display: block;
-    object-position: center;
-    object-fit: cover;
-    transition: transform 0.5s ease-in-out;
-    border-radius: 20px 20px 0 0;
+    aspect-ratio: 1 / 1;
+    background-color: #f9f9f9;
+    border-radius: 4px 4px 0 0;
     cursor: zoom-in;
 }
 
-.card:hover img, .product-card:hover img {
-    transform: scale(1.4); /* Zoom um pouco maior */
+.img-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    padding: 10px;
+    transition: transform 0.4s ease;
+    box-sizing: border-box;
 }
 
-/* --- EFEITO LUPA (Lente de Aumento) --- */
-.card::after, .product-card::after {
+.img-container:hover img {
+    transform: scale(1.6); /* Nível do zoom */
+}
+
+/* Lente da Lupa (Círculo) */
+.img-container::after {
     content: "";
     position: absolute;
-    top: var(--mouse-y, 125px); /* Metade da nova altura da imagem (250px / 2) */
+    top: var(--mouse-y, 50%);
     left: var(--mouse-x, 50%);
-    width: 100px;
-    height: 100px;
-    border: 3px solid rgba(255, 255, 255, 0.9);
+    width: 120px;
+    height: 120px;
+    border: 2px solid #d0e4f8;
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
-    pointer-events: none; /* Garante que a lupa não atrapalhe cliques no botão */
+    pointer-events: none;
     z-index: 10;
-    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.15); /* Cria o efeito de sombra em volta do foco */
-    transition: transform 0.2s ease, opacity 0.3s ease; /* Transição mais rápida para seguir o mouse */
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, opacity 0.2s ease;
     opacity: 0;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.card:hover::after, .product-card:hover::after {
+.img-container:hover::after {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
 }
-
 .card-info {    
-    padding: 12px;
+    padding: 12px; /* Menos preenchimento interno nas páginas de produtos */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -332,66 +369,71 @@ nav li {
 }
 
 .categoria-tag {
-    font-size: 0.65rem;
-    color: #6db3f8;
-    background: #f0f7ff;
-    padding: 3px 8px;
+    font-size: 0.7rem;
+    color: #f5faff;
+    background: rgba(109, 179, 248, 0.1);
+    padding: 4px 12px;
     border-radius: 20px;
     display: inline-block;
     width: fit-content;
     margin: 0 auto 8px auto;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .card-info h2 {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: #493f64;
     margin-bottom: 8px;
-    min-height: 45px; /* Garante que títulos de 1 ou 2 linhas ocupem o mesmo espaço */
+    min-height: 40px; /* Diminui o espaço reservado para o título */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .card-info p:not(.preco) {
-    flex-grow: 1; /* Faz a descrição ocupar o espaço disponível e empurrar o preço para baixo */
-    font-size: 0.8rem;
+    flex-grow: 1;
+    font-size: 0.85rem;
     color: #888;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Aproxima a descrição do preço */
     line-height: 1.4;
+    text-align: center;
 }
 
 /* Preço em destaque */
 .preco {
-    font-size: 1rem;
+    font-size: 1.3rem;
     color:#6db3f8;
-    font-weight: bold;
+    font-weight: 800;
     margin-top: auto;
     display: block;
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 /* Estilo do botão comprar */
 .card button, .product-card button {
-    background: #6db3f8;
+    background: #50a0f0;
     color: white;
     border: none;
-    padding: 7px 18px;
-    border-radius: 50px;
-    font-weight: bold;
-    margin-top: 15px;
+    padding: 15px 30px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-top: 20px;
     cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .card button:hover, .product-card button:hover {
-    background: #361e77;
-    letter-spacing: 1px;
-    transform: scale(1.05);
-    box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+    background: #00fa00;
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(109, 179, 248, 0.3);
+    color: #fff;
+    border-color: #6db3f8;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
 /* --- CARRINHO LATERAL --- */
@@ -402,7 +444,9 @@ nav li {
     width: 350px;
     max-width: 90vw;
     height: 100%;
-    background: rgb(199, 242, 255);
+    background: #fff;
+    padding: 25px; 
+    z-index: 2000;
     box-shadow: -10px 0 30px rgba(0,0,0,0.1);
     z-index: 2000;
     transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
@@ -413,6 +457,21 @@ nav li {
 
 #carrinho-lateral.aberto {
     right: 0;
+    transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+#carrinho-lateral::-webkit-scrollbar {
+    width: 6px;
+}
+#carrinho-lateral::-webkit-scrollbar-thumb {
+    background-color: #b3e9ff;
+    border-radius: 10px;
+}
+#carrinho-lateral::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
 }
 
 .carrinho-header {
@@ -441,8 +500,33 @@ nav li {
     width: 6px;
 }
 #itens-carrinho::-webkit-scrollbar-thumb {
-    background-color: #eee;
+    background-color: #b3e9ff;
     border-radius: 10px;
+}
+#itens-carrinho::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+.carrinho-footer {
+    padding: 25px;
+    background: #cee9fc;
+    border-top: 1px solid #eee;
+}
+
+.btn-finalizar {
+    background: #6db3f8;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .item-carrinho {
@@ -450,7 +534,7 @@ nav li {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #9fcdf3;
     font-size: 0.9rem;
 }
 
@@ -461,7 +545,7 @@ nav li {
 }
 
 .btn-remover {
-    background: #fff0f0;
+    background: #beedff;
     color: #312ee0;
     border: none;
     border-radius: 50%;
@@ -488,7 +572,7 @@ nav li {
     z-index: 1001;
     padding: 15px;
     border-radius: 50%;
-    background: #f6f86d;
+    background: #e6ff56;
     color: white;
     border: none;
     cursor: pointer;
@@ -553,12 +637,46 @@ footer {
 /* --- ESTILOS DA PÁGINA SOBRE --- */
 .sobre-nos {
     padding: 60px 5%;
-    background: #fff;
+    background: transparent; /* Permite que o azul do fundo apareça */
+    text-align: center;
+    border-radius: 45px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sobre-nos h1 {
+    color: #1a2f44;
+    margin-bottom: 30px;
     text-align: center;
 }
 
+.sobre-nos p {
+    color: #888;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}   
+
+.sobre-nos p {
+    color: #888;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}       
+
+.container-sobre {
+    padding: 60px 5%;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 45px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
 .container-sobre h1 {
-    color: #6db3f8;
+    color: #1a2f44;
     margin-bottom: 30px;
 }
 
@@ -589,17 +707,17 @@ footer {
 /* --- ESTILOS DA PÁGINA DE CONTATO --- */
 .contato-secao {
     padding: 60px 5%;
-    background: #fff;
+    background: transparent; /* Permite que o azul do fundo apareça */
     text-align: center;
 }
 
 .container-contato h1 {
-    color: #6db3f8;
+    color: #1d3247;
     margin-bottom: 10px;
 }
 
 .container-contato > p {
-    color: #888;
+    color: #1c2535;
     margin-bottom: 40px;
 }
 
@@ -707,7 +825,7 @@ footer {
 }
 
 .btn-enviar {
-    background: #6db3f8;
+    background: #142536;
     color: white;
     border: none;
     padding: 15px 30px;
@@ -729,6 +847,9 @@ footer {
         padding: 8px 5%;
         position: sticky;
         top: 0;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: 0   
     }
 
     .logo-img {
@@ -748,7 +869,7 @@ footer {
         top: 100%;
         left: 0;
         width: 100%;
-        background: #fbfeff;
+        background: #ffffff;
         box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         padding: 20px 0;
         height: calc(100vh - 86px);
@@ -804,7 +925,8 @@ footer {
 
     .filter-bar {
         top: 86px; 
-        padding: 15px 0;
+        padding: 5px 5% 5px 0%; /* Ajusta o padding para o mobile */
+        padding: 5px 5% 5px 5%; /* Removido padding superior no mobile (era 15px) */
         background: #fff;
         box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
@@ -826,13 +948,34 @@ footer {
         grid-template-columns: 1fr; /* Garante 1 card por linha em mobile */
         padding: 20px 15px; /* Ajusta o padding lateral */
         gap: 25px; /* Aumenta o espaçamento entre cards */
+
     }
+
+    /* Habilita a lupa no mobile */
+    .img-container::after {
+        display: block; 
+        width: 200px; /* Tamanho ajustado para não cobrir a tela toda no celular */
+        height: 200px;
+        border-radius: 100px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .img-container:hover img {
+        transform: scale(1.6); /* Mantém o mesmo nível de zoom do desktop */
+    }
+
+    .card:hover, .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(109, 179, 248, 0.12);
+        border-color: #6db3f8;
+    }       
 
     /* Ajustes específicos para o card em mobile */
     .card img, .product-card img {
-        height: 200px; /* Altura da imagem para mobile */
+        height: auto;
+        aspect-ratio: 1 / 1;
         object-fit: contain; /* Garante que a imagem não seja cortada */
-        border-radius: 20px 20px 0 0;
+        border-radius: 4px 4px 0 0;
         transition: transform 0.3s ease;
         cursor: pointer;
         width: 100%;
@@ -844,7 +987,6 @@ footer {
         width: 110px; /* Lupa um pouco maior para melhor visualização */
         height: 110px;
     }
-
     .card-info {
         padding: 15px; /* Aumenta o padding interno do card-info */
     }
@@ -869,19 +1011,32 @@ footer {
     }
 
     .card button, .product-card button {
-        padding: 9px 20px; /* Botão mais fácil de tocar */
+        background-color: #79b3ff; /* Roxo elegante da marca para o botão */
+        padding: 15px 20px;
         margin-top: 10px;
         font-size: 0.9rem;
+        width: 100%; /* Botão ocupa a largura total para facilitar o toque */
+    }
+
+    /* Evita que o botão fique verde ou aumente de tamanho ao ser tocado no mobile */
+    .card button:hover, .product-card button:hover {
+        background-color: #6db3f8; /* Azul suave ao tocar */
+        transform: none;
     }
 
     /* Carrossel */
     .slides {
         grid-template-columns: 1fr;
+        gap: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 50px;
     }
 
     .slide, .slide img, .slider, .carrossel {
         width: 100%;
-        height: 100px;
+        height: 173px;
+        object-fit: cover;
         overflow: hidden;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -898,7 +1053,7 @@ footer {
     }
 
     .slides {
-        height: 150px;
+        height: 170px;
         width: 300%;
         animation: slide-auto 15s infinite ease-in-out;
         overflow: hidden;
@@ -906,7 +1061,8 @@ footer {
 
     .slide {
         width: 33.3333%;
-        height: 60%;
+        height: 85%;
+        height: 100%; /* Ajustado de 85% para 100% para eliminar o vão inferior */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -919,7 +1075,7 @@ footer {
     .slide img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         transition: transform 0.5s ease;
     }
 
@@ -968,7 +1124,7 @@ footer {
         padding: 15px;
         font-size: 1.5rem;
         z-index: 2100; /* Garante que fique acima de tudo */
-        background: #f6f86d;
+        background: #e6ff57;
         border-radius: 50%;
         border: none;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
