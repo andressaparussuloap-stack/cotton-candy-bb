@@ -44,6 +44,11 @@
             </div> <!-- FECHA slides -->
         </div> <!-- FECHA slider -->
     </section>
+
+    <section class="search-container">
+        <input type="text" id="busca-produto" placeholder="O que você está procurando?">
+    </section>
+
     <section class="filter-bar">
         <nav>
             <ul>
@@ -60,7 +65,10 @@
     <main>
         <section class="produtos">
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref02-rn.jpeg" alt="Macação Ref 02">
+                <div class="img-container">
+                    <img src="img/macacao-ref02-rn.jpeg" class="primary-img" alt="Macação Frente">
+                    <img src="img/macacao-ref02-costa.jpeg" class="secondary-img" alt="Macação Detalhe">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macação Menina Ref 02</h2>
@@ -76,7 +84,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref03-p.jpeg" alt="Macação Ref 03">
+                <div class="img-container">
+                    <img src="img/macacao-ref03-p.jpeg" class="primary-img" alt="Macação Frente">
+                    <img src="img/macacao-ref03-costa.jpeg" class="secondary-img" alt="Macação Detalhe">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macação Menina Ref 03</h2>
@@ -91,7 +102,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref06-rn.jpeg" alt="Macacao Ref 06">
+                <div class="img-container">
+                    <img src="img/macacao-ref06-rn.jpeg" class="primary-img" alt="Macação Frente">
+                    <img src="img/macacao-ref06-costa.jpeg" class="secondary-img" alt="Macação Detalhe">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macacão Menina Ref 06</h2>
@@ -106,7 +120,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref11-p.jpeg" alt="Macacao Ref 11">
+                <div class="img-container">
+                    <img src="img/macacao-ref11-p.jpeg" class="primary-img" alt="Macação Frente">
+                    <img src="img/macacao-ref11-costa.jpeg" class="secondary-img" alt="Macação Detalhe">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macacão Menina Ref 11</h2>
@@ -121,7 +138,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref13-rn.jpeg" alt="Macacao Ref 13">
+                <div class="img-container">
+                    <img src="img/macacao-ref13-rn.jpeg" class="primary-img" alt="Macacão Frente">
+                    <img src="img/macacao-ref13-costa.jpeg" class="secondary-img" alt="Macacão Verso">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macacão Menina Ref 13</h2>
@@ -136,7 +156,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref17-rn.jpeg" alt="Macacao Ref 17">
+                <div class="img-container">
+                    <img src="img/macacao-ref17-rn.jpeg" class="primary-img" alt="Macacão Frente">
+                    <img src="img/macacao-ref17-costa.jpeg" class="secondary-img" alt="Macacão Verso">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macacão Menino Ref 17</h2>
@@ -1024,7 +1047,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="pequenos-momentos" data-estoque="1">
-                <img src="img/macacao-ref68.jpeg" alt="Macacao Ref 68">
+                <div class="img-container">
+                    <img src="img/baby-ref68.jpeg" class="primary-img" alt="baby Ref 68">
+                    <img src="img/macacao-ref68.jpeg" class="secondary-img" alt="Macacao Ref 68">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Pequenos Momentos</span>
                     <h2>Macacão Menino Ref 68</h2>
@@ -1032,10 +1058,11 @@
                         Modelo: Com pé
                         Comprimento: 45cm
                         Tecido: plush
-                        Marca: Sem identificação</p>                  
+                        Marca: Sem identificação
+                    </p>                  
                     <p class="estoque">Disponível: <span>1</span></p>
-                    <p class="preco">R$ 11,99</p>
-                    <button data-link="https://produto.mercadolivre.com.br/MLB-EXEMPLO1">Comprar</button>
+                    <p class="preco">R$ 20,99</p>
+                    <button data-link="https://www.mercadolivre.com.br/macacao-bebe-menino-rn/up/MLBU3959486551?pdp_filters=item_id%3AMLB4677435767">Comprar</button>
                 </div> 
             </div>  
             <div class="card" data-categoria="pequenos-momentos" data-estoque="1">
@@ -1353,8 +1380,11 @@
                     <button data-link="https://produto.mercadolivre.com.br/MLB-EXEMPLO1">Comprar</button>
                 </div>
             </div>
-                    <div class="card" data-categoria="pequenos-momentos" data-estoque="1">
-                <img src="img/macacao-ref90.jpeg" alt="Macacao Ref 90">         
+            <div class="card" data-categoria="pequenos-momentos" data-estoque="1">
+                <div class="img-container">
+                <img src="img/baby-ref90.jpeg" class="primary-img" alt="baby-ref90">
+                <img src="img/macacao-ref90.jpeg" class="secondary-img" alt="macacao-ref90">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Pequenos Momentos</span>
                     <h2>Macacão Menino Ref 90</h2>                                  
@@ -1364,8 +1394,8 @@
                         Tecido: Plush
                         Marca: Sem identificação</p>    
                     <p class="estoque">Disponível: <span>1</span></p>
-                    <p class="preco">R$ 18,99</p>    
-                    <button data-link="https://produto.mercadolivre.com.br/MLB-EXEMPLO1">Comprar</button>
+                    <p class="preco">R$ 28,99</p>    
+                    <button data-link="https://www.mercadolivre.com.br/macacao-bebe-plush-manga-longa-estampa-gatinho-p/up/MLBU3959415153?pdp_filters=item_id%3AMLB6768480114#origin=share&sid=share&wid=MLB6768480114&action=whatsapp">Comprar</button>
                 </div>
             </div>
             <div class="card" data-categoria="pequenos-momentos" data-estoque="1">
@@ -1593,7 +1623,10 @@
                 </div>
             </div>
             <div class="card" data-categoria="doce-romance" data-estoque="1">
-                <img src="img/macacao-ref106.jpeg" alt="Macacao Ref 106">         
+                <div class="img-container">
+                <img src="img/macacao-ref106.jpeg" class="secondary-img" alt="Macacao Ref 106"> 
+                <img src="img/baby-ref106.jpeg" class="primary-img" alt="baby-ref106">
+                </div>
                 <div class="card-info">
                     <span class="categoria-tag">Doce Romance</span>
                     <h2>Macacão Menina Ref 106</h2>                                  
@@ -1603,8 +1636,8 @@
                         Tecido: Malhão
                         Marca: Sem identificação</p>
                     <p class="estoque">Disponível: <span>1</span></p>
-                    <p class="preco">R$ 9,99</p>
-                    <button data-link="https://produto.mercadolivre.com.br/MLB-EXEMPLO1">Comprar</button>       
+                    <p class="preco">R$ 23,99</p>
+                    <button data-link="https://www.mercadolivre.com.br/macacao-bebe-manga-longa-rn-menina/up/MLBU3952545843?pdp_filters=item_id%3AMLB6754904682#origin=share&sid=share&wid=MLB6754904682&action=whatsapp">Comprar</button>       
                 </div>
             </div>
             <div class="card" data-categoria="pequenos-momentos" data-estoque="1">
@@ -1618,7 +1651,7 @@
                         Tecido: Malhão
                         Marca: Seven Baby</p>
                     <p class="estoque">Disponível: <span>1</span></p>
-                    <p class="preco">R$ 9,99</p>
+                    <p class="preco">R$ 23,99</p>
                     <button data-link="https://produto.mercadolivre.com.br/MLB-EXEMPLO1">Comprar</button>       
                 </div>
             </div>
@@ -2636,6 +2669,19 @@
                 <div class="carrinho-footer">
                     <h3>Total: <span id="valor-total">R$ 0,00</span></h3>
                     <button class="btn-finalizar">Finalizar Compra</button>
+                </div>
+            </div>
+
+            <!-- Modal de Detalhes do Produto -->
+            <div id="modal-produto" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="fecharModal()">&times;</span>
+                    <div class="modal-left">
+                        <!-- Imagem carregada via JS -->
+                    </div>
+                    <div class="modal-right">
+                        <!-- Info carregada via JS -->
+                    </div>
                 </div>
             </div>
 

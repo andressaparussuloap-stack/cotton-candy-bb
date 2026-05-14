@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. LÓGICA DE ADICIONAR PRODUTOS ---
 
     botoesComprar.forEach((botao) => {
-        botao.addEventListener('click', () => {
+        botao.addEventListener('click', (e) => {
+            // Impede que o clique no botão abra o modal de detalhes
+            e.stopPropagation();
+            
             // Sobe na hierarquia do HTML para achar o card que contém o botão clicado
             const container = botao.closest('.card') || botao.closest('.product-card');
             if (!container) return;
@@ -173,29 +176,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 7. LÓGICA DE FILTRO DE PRODUTOS ---
     const botoesFiltro = document.querySelectorAll('.filter-bar a');
     const cardsProdutos = document.querySelectorAll('.produtos .card');
+    const buscaInput = document.getElementById('busca-produto');
+
+    let categoriaAtiva = 'todos';
+    let termoBusca = '';
+
+    const aplicarFiltros = () => {
+        cardsProdutos.forEach(card => {
+            const categoriaCard = card.getAttribute('data-categoria');
+            const nomeCard = card.querySelector('h2, h3')?.innerText.toLowerCase() || "";
+            
+            const matchesCategoria = categoriaAtiva === 'todos' || categoriaCard === categoriaAtiva;
+            const matchesBusca = nomeCard.includes(termoBusca);
+
+            if (matchesCategoria && matchesBusca) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    };
 
     botoesFiltro.forEach(botao => {
         botao.addEventListener('click', (e) => {
             e.preventDefault();
-            const categoria = botao.getAttribute('data-filter');
+            categoriaAtiva = botao.getAttribute('data-filter');
 
             // Atualiza a aparência dos botões (qual está ativo)
             botoesFiltro.forEach(b => b.classList.remove('active'));
             botao.classList.add('active');
-            // Melhora a navegação mobile centralizando o filtro clicado
             botao.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
-            // Mostra ou esconde os cards baseado na categoria selecionada
-            cardsProdutos.forEach(card => {
-                const categoriaCard = card.getAttribute('data-categoria');
-                if (categoria === 'todos' || categoriaCard === categoria) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            aplicarFiltros();
         });
     });
+
+    if (buscaInput) {
+        buscaInput.addEventListener('input', (e) => {
+            termoBusca = e.target.value.toLowerCase();
+            aplicarFiltros();
+        });
+    }
 
     // --- 8. LÓGICA DO FORMULÁRIO DE CONTATO (BACKEND INTEGRATION) ---
     const formContato = document.getElementById('form-contato');
@@ -264,33 +285,125 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // --- 10. LÓGICA DA LUPA NOS PRODUTOS ---
+    // --- 10. LÓGICA DO MODAL DE DETALHES ---
+    const modal = document.getElementById('modal-produto');
+    const cards = document.querySelectorAll('.card, .product-card');
 
-    // Envolve as imagens em um container para a lupa funcionar (evita ter que editar o HTML de cada produto)
-    document.querySelectorAll('.card img, .product-card img').forEach(img => {
+    // --- 10.5 LUPA AUTOMÁTICA EM TODOS OS PRODUTOS ---
+    // Envolve as imagens em um container para a lupa funcionar sem precisar editar todo o HTML
+    document.querySelectorAll('.card > img, .product-card > img').forEach(img => {
         if (!img.parentElement.classList.contains('img-container')) {
             const wrapper = document.createElement('div');
             wrapper.className = 'img-container';
             img.parentNode.insertBefore(wrapper, img);
             wrapper.appendChild(img);
+            img.classList.add('primary-img');
         }
     });
 
+    // Função global para trocar a imagem no modal
+    window.changeModalImage = (src, btn) => {
+        const img = document.getElementById('main-modal-img');
+        if (img) img.src = src;
+        
+        // Atualiza qual botão está com o visual "ativo"
+        const buttons = document.querySelectorAll('.thumb-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    };
+
+    const abrirModal = (card) => {
+        if (!modal) return;
+        
+        const imgPrimaria = card.querySelector('.primary-img')?.src || card.querySelector('img')?.src;
+        const imgSecundaria = card.querySelector('.secondary-img')?.src;
+        const titulo = card.querySelector('h2, h3')?.innerText;
+        const categoria = card.querySelector('.categoria-tag')?.innerText;
+        const descricao = card.querySelector('p:not(.estoque):not(.preco)')?.innerText;
+        const preco = card.querySelector('.preco')?.innerText;
+        const linkML = card.querySelector('button')?.getAttribute('data-link');
+
+        // Cria o HTML da galeria com botões se houver uma segunda imagem
+        let leftContent = `
+            <div class="img-container">
+                <img src="${imgPrimaria}" class="modal-img primary-img" id="main-modal-img">
+            </div>
+        `;
+        if (imgSecundaria) {
+            leftContent += `
+                <div class="modal-thumbnails">
+                    <button class="thumb-btn active" onclick="changeModalImage('${imgPrimaria}', this)">Foto 1</button>
+                    <button class="thumb-btn" onclick="changeModalImage('${imgSecundaria}', this)">Foto 2</button>
+                </div>
+            `;
+        }
+        modal.querySelector('.modal-left').innerHTML = leftContent;
+
+        modal.querySelector('.modal-right').innerHTML = `
+            <span class="categoria-tag">${categoria}</span>
+            <h2>${titulo}</h2>
+            <p style="white-space: pre-line;">${descricao}</p>
+            <p class="preco" style="font-size: 1.8rem;">${preco}</p>
+            <button onclick="window.open('${linkML}', '_blank')" class="btn-finalizar">Comprar no Mercado Livre</button>
+        `;
+
+        modal.style.display = 'flex';
+    };
+
+    cards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => abrirModal(card));
+    });
+
+    window.fecharModal = () => {
+        if (modal) modal.style.display = 'none';
+    };
+
+    // Fecha o modal se clicar fora dele
+    window.onclick = (event) => {
+        if (event.target == modal) fecharModal();
+    };
+
+    // --- 11. LÓGICA DA LUPA NOS PRODUTOS ---
+
     // Faz a lupa seguir o movimento do mouse e do toque (mobile)
     const atualizarPosicaoLupa = (e) => {
-        const isTouch = e.type === 'touchmove';
-        const clientX = isTouch ? e.touches[0].clientX : e.clientX;
-        const clientY = isTouch ? e.touches[0].clientY : e.clientY;
-        const container = e.target.closest('.img-container');
+        const isTouch = e.type.startsWith('touch');
+        const clientX = isTouch ? (e.touches[0] ? e.touches[0].clientX : e.changedTouches[0].clientX) : e.clientX;
+        const clientY = isTouch ? (e.touches[0] ? e.touches[0].clientY : e.changedTouches[0].clientY) : e.clientY;
+        
+        // Encontra o container mais próximo
+        let container = e.target.closest('.img-container');
+        
+        // Se estiver no modal, podemos desabilitar ou ajustar
 
         if (container) {
             const rect = container.getBoundingClientRect();
-            container.style.setProperty('--mouse-x', `${clientX - rect.left}px`);
-            container.style.setProperty('--mouse-y', `${clientY - rect.top}px`);
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            
+            container.style.setProperty('--mouse-x', `${x}px`);
+            container.style.setProperty('--mouse-y', `${y}px`);
+
+            // Calcula a porcentagem para o transform-origin (Zoom no ponto exato)
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+            const img = container.querySelector('img');
+            if (img) img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+
+            // No mobile, adicionamos uma classe para mostrar a lupa apenas durante o toque
+            if (e.type === 'touchstart' || e.type === 'touchmove') {
+                container.classList.add('lupa-ativa');
+            } else if (e.type === 'touchend') {
+                container.classList.remove('lupa-ativa');
+            }
         }
     };
 
     document.addEventListener('mousemove', atualizarPosicaoLupa);
+    // Adicionamos eventos de início e fim de toque para o mobile
+    document.addEventListener('touchstart', atualizarPosicaoLupa, { passive: true });
     document.addEventListener('touchmove', atualizarPosicaoLupa, { passive: true });
+    document.addEventListener('touchend', atualizarPosicaoLupa, { passive: true });
 
 });

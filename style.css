@@ -1,15 +1,25 @@
 /* --- ESTILOS GERAIS --- */
+* {
+    box-sizing: border-box; /* Garante que preenchimentos não quebrem o tamanho dos elementos */
+}
+
 body {
-    background-color: #e4f0ff; /* Azul bem clarinho para todo o site */
+    background-color: #EBF5FF; /* Azul bem clarinho para todo o site */
     margin: 0;
 }
 
 .home-page {
-    background-color: #ecf1ff; /* Mantendo a consistência na Home */
+    background-color: #ebf5ff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Mantendo a consistência na Home */
 }
 
 header {
-    background: #ffffff; /* Cor mais clara para melhor leitura */
+    background: #fdfdfd; /* Cor mais clara para melhor leitura */
     padding: 10px 5%;
     display: flex;
     flex-direction: row; /* Logo e Menu lado a lado no desktop */
@@ -75,6 +85,32 @@ nav ul li a:hover {
 
 nav li {
     display: inline-block;
+}
+
+/* --- BARRA DE PESQUISA --- */
+.search-container {
+    padding: 20px 5% 0 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-container input {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px 25px;
+    border: 2px solid #f0f0f0;
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    color: #493f64;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.search-container input:focus {
+    border-color: #6db3f8;
+    box-shadow: 0 4px 15px rgba(109, 179, 248, 0.2);
 }
 
 /* --- BARRA DE FILTROS / CATEGORIAS --- */
@@ -256,8 +292,10 @@ nav li {
 }
 .featured-products {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 30px;  
+    grid-template-columns: repeat(4, 1fr); /* Alterado para 4 produtos por linha */
+    gap: 100px;
+    padding: 0 5%;
+    max-width: 1200px; /* Reduzido para os cards não ficarem espremidos */
     padding: 0 5%;
     max-width: 1200px;
     margin: 0 auto;  
@@ -266,7 +304,7 @@ nav li {
 /* Estilos Compartilhados para Cards (Destaques e Produtos) */
 .card, .product-card {
     background: rgb(255, 255, 255);
-    border-radius: 20px; /* Cantos mais retos para um visual "quadrado" */
+    border-radius: 15px; /* Cantos mais retos para um visual "quadrado" */
     box-shadow: 0 10px 20px rgba(0,0,0,0.04);
     overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
@@ -277,7 +315,7 @@ nav li {
 }
 
 .product-info {     
-    padding: 15px; /* Reduzido para compactar o card verticalmente */
+    padding: 100px; 
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -291,7 +329,7 @@ nav li {
 }
 .product-info p {
     font-size: 1.4rem;
-    color: #6db3f8;
+    color: #1d2935;
     font-weight: 800;
     margin: 0;
 }       
@@ -299,8 +337,8 @@ nav li {
 /* --- PÁGINA DE PRODUTOS --- */
 .produtos {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr); /* Alterado para 4 produtos por linha */
+    gap: 25px; /* Espaçamento idêntico ao destaque para consistência */
     padding: 40px 5%;
     max-width: 1200px;
     margin: 0 auto;
@@ -328,12 +366,110 @@ nav li {
     display: block;
     object-fit: contain;
     padding: 10px;
-    transition: transform 0.4s ease;
+    transition: transform 0.2s ease-out; /* Transição mais rápida para seguir o mouse */
     box-sizing: border-box;
+    transform-origin: center; /* Ponto inicial do zoom */
 }
 
-.img-container:hover img {
+/* Suporte para duas imagens - a segunda aparece no hover */
+.img-container .secondary-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    z-index: 2;
+}
+
+.img-container:hover .secondary-img {
+    opacity: 1;
+}
+
+.img-container:hover img,
+.img-container.lupa-ativa img {
     transform: scale(1.6); /* Nível do zoom */
+}
+
+/* --- ESTILOS DO MODAL (DETALHES DO PRODUTO) --- */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 30px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #493f64;
+    line-height: 1;
+}
+
+.modal-left { flex: 1; min-width: 300px; }
+.modal-right { flex: 1.2; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
+.modal-img { width: 100%; border-radius: 15px; }
+
+/* Garante que a lupa funcione dentro do modal também */
+.modal-left .img-container {
+    border-radius: 15px;
+}
+
+/* Botões de troca de imagem no Modal */
+.modal-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.thumb-btn {
+    padding: 8px 15px;
+    border: 2px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #493f64;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.thumb-btn.active {
+    border-color: #2b4d6e;
+    background: #294663;
+    color: #fff;
 }
 
 /* Lente da Lupa (Círculo) */
@@ -355,7 +491,8 @@ nav li {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.img-container:hover::after {
+.img-container:hover::after,
+.img-container.lupa-ativa::after {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
 }
@@ -370,7 +507,7 @@ nav li {
 
 .categoria-tag {
     font-size: 0.7rem;
-    color: #f5faff;
+    color: #122c46;
     background: rgba(109, 179, 248, 0.1);
     padding: 4px 12px;
     border-radius: 20px;
@@ -384,12 +521,13 @@ nav li {
 
 .card-info h2 {
     font-size: 1.1rem;
-    color: #493f64;
-    margin-bottom: 8px;
-    min-height: 40px; /* Diminui o espaço reservado para o título */
+    color: #21a6ff;
+    margin-bottom: 12px;
+    min-height: 50px; /* Altura mínima fixa para que os títulos sempre alinhem */
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1.2;
 }
 
 .card-info p:not(.preco) {
@@ -397,14 +535,19 @@ nav li {
     font-size: 0.85rem;
     color: #888;
     margin-bottom: 10px; /* Aproxima a descrição do preço */
-    line-height: 1.4;
+    line-height: 1.5;
     text-align: center;
+    /* Limita o texto no card para não esticar o layout, o resto aparece no Modal */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Preço em destaque */
 .preco {
     font-size: 1.3rem;
-    color:#6db3f8;
+    color:#2e5e8f;
     font-weight: 800;
     margin-top: auto;
     display: block;
@@ -592,7 +735,7 @@ nav li {
 }
 
 .btn-finalizar {
-    background: #493f64;
+    background: #50a0f0;
     color: white;
     border: none;
     padding: 16px;
@@ -609,7 +752,7 @@ nav li {
 }
 
 .btn-finalizar:hover {
-    background: #6db3f8;
+    background: #11f337;
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(109, 179, 248, 0.4);
 }
@@ -945,23 +1088,33 @@ footer {
     }
 
     .produtos {
-        grid-template-columns: 1fr; /* Garante 1 card por linha em mobile */
-        padding: 20px 15px; /* Ajusta o padding lateral */
-        gap: 25px; /* Aumenta o espaçamento entre cards */
-
+        grid-template-columns: repeat(2, 1fr); /* Agora exibe 2 produtos por linha */
+        padding: 15px 10px;
+        gap: 12px;
     }
 
-    /* Habilita a lupa no mobile */
-    .img-container::after {
-        display: block; 
-        width: 200px; /* Tamanho ajustado para não cobrir a tela toda no celular */
-        height: 200px;
-        border-radius: 100px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    /* Deixa o Modal de detalhes mais compacto no mobile */
+    .modal-content {
+        padding: 25px 15px;
+        gap: 15px;
+        border-radius: 20px;
+        width: 90%; /* Define uma largura menor que a tela para centralizar visualmente */
+        max-height: 80vh;
+        overflow-y: auto;
+        text-align: center; /* Centraliza os textos */
     }
 
-    .img-container:hover img {
-        transform: scale(1.6); /* Mantém o mesmo nível de zoom do desktop */
+    .modal-left, .modal-right {
+        min-width: 100%;
+    }
+
+    .modal-right h2 {
+        font-size: 1.3rem;
+    }
+
+    .modal-right {
+        align-items: center; /* Centraliza o botão e outros elementos flexíveis */
+        text-align: center;
     }
 
     .card:hover, .product-card:hover {
@@ -981,48 +1134,49 @@ footer {
         width: 100%;
     }
 
-    /* Ajuste da lupa para a nova altura da imagem em mobile */
-    .card::after, .product-card::after {
-        top: var(--mouse-y, 100px); /* Metade da nova altura da imagem (200px / 2) */
-        width: 110px; /* Lupa um pouco maior para melhor visualização */
-        height: 110px;
-    }
     .card-info {
-        padding: 15px; /* Aumenta o padding interno do card-info */
+        padding: 10px; /* Reduz o espaço interno para caber melhor em 2 colunas */
     }
 
     .categoria-tag {
-        font-size: 0.7rem; /* Um pouco maior para melhor legibilidade */
-        padding: 4px 10px;
+        font-size: 0.6rem;
+        padding: 2px 8px;
     }
 
     .card-info h2 {
-        font-size: 1rem; /* Tamanho do título otimizado para mobile */
+        font-size: 0.85rem; /* Título menor para os cards menores */
         min-height: auto; /* Remove min-height para evitar espaços vazios desnecessários */
     }
 
     .card-info p:not(.preco) {
-        font-size: 0.85rem; /* Descrição um pouco maior */
+        font-size: 0.75rem; /* Letras menores na descrição */
         margin-bottom: 10px;
     }
 
     .preco {
-        font-size: 1.1rem; /* Preço mais visível */
+        font-size: 1rem;
     }
 
     .card button, .product-card button {
-        background-color: #79b3ff; /* Roxo elegante da marca para o botão */
-        padding: 15px 20px;
+        background-color: #50a0f0; 
+        padding: 15px 15px; /* Botão mais baixo */
         margin-top: 10px;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         width: 100%; /* Botão ocupa a largura total para facilitar o toque */
     }
 
-    /* Evita que o botão fique verde ou aumente de tamanho ao ser tocado no mobile */
-    .card button:hover, .product-card button:hover {
-        background-color: #6db3f8; /* Azul suave ao tocar */
-        transform: none;
-    }
+  /* Faz o botão ficar grande e verde ao tocar/passar o mouse */
+.card button:hover, .product-card button:hover {
+    background-color: #2ecc71; /* Verde */
+    transform: scale(1.1);    /* Aumenta o tamanho em 10% */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Adiciona uma sombra para destacar */
+    color: #fff;              /* Cor do texto branca */
+    border-color: #27ae60;    /* Borda verde mais escura */
+    
+    /* Adiciona suavidade na transição (opcional, mas recomendado) */
+    transition: all 0.3s ease; 
+}
+  
 
     /* Carrossel */
     .slides {
@@ -1133,10 +1287,15 @@ footer {
 
 /* --- CONFIGURAÇÃO PARA TABLETS (Entre 769px e 1024px) --- */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .card, .product-card {
-        width: 45%; /* Coloca 2 cards por linha em tablets */
+    .produtos, .featured-products {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px;
     }
-    
+
+    .card, .product-card {
+        width: 100% !important; /* O grid controla a largura, não o width fixo */
+    }
+
     .hero-content h1 {
         font-size: 2.8rem;
     }
