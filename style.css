@@ -15,7 +15,6 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Mantendo a consistência na Home */
 }
 
 header {
@@ -99,7 +98,7 @@ nav li {
     width: 100%;
     max-width: 600px;
     padding: 12px 25px;
-    border: 2px solid #f0f0f0;
+    border: 2px solid #ccecff;
     border-radius: 50px;
     font-size: 1rem;
     outline: none;
@@ -127,26 +126,13 @@ nav li {
     scrollbar-width: none; /* Esconde barra no Firefox */
 }
 
-.filter-bar::-webkit-scrollbar {
-    display: none; /* Esconde a barra de rolagem para um visual mais limpo */
-}
-
-.filter-bar ul {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .filter-bar a {
     text-decoration: none;
     color: #888;
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border: 2px solid #f0f0f0;
     border-radius: 50px;
     letter-spacing: 0.5px;
@@ -161,42 +147,38 @@ nav li {
     box-shadow: 0 4px 10px rgba(109, 179, 248, 0.3);
 }
 
-/* --- BANNER HERo PROPORCIONAL COM FUNDO COLORIDO --- */
+/* --- BANNER HERO PROPORCIONAL --- */
 .hero-banner {
-    /* Define a largura máxima desejada (ex: 500px para um tamanho médio/pequeno) */
-    width: 100%; /* Ocupa a largura total do container pai */
-    max-width: 500px; /* Mas não ultrapassa 500px (ajuste este valor conforme sua necessidade) */
-    margin: 0 auto; /* Centraliza o banner na página */
-
-    /* Importante para a proporção: */
-    height: auto; /* Deixa a altura se ajustar automaticamente à imagem */
-    aspect-ratio: 1 / 1; /* Define uma proporção quadrada (baseada na arte original) */
+    width: 100%;
+    max-width: 1200px; 
+    margin: 15px auto; 
+    aspect-ratio: 21 / 9; /* Proporção ideal para banners modernos */
     
     /* Configurações de Fundo (Cor + Imagem) */
-    background-color: transparent; 
+    background-color: #6B8E68; 
     background-image: url('img/banner1.jpg'); /* Sua imagem de banner */
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: contain; /* Mantém a imagem inteira visível dentro do espaço */
-    background-origin: content-box; /* ADICIONADA: Garante que a imagem comece dentro da borda, não atrás dela */
+    background-size: cover; /* Faz a imagem preencher todo o banner */
+    border-radius: 20px; /* Cantos arredondados para um visual moderno */
     
 
     /* Layout para o conteúdo de texto */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
     color: #493f64;
-    padding: 20px; /* Respiro interno para o texto */
+    padding: 60px; /* Mais espaço interno */
 }
 
 /* Ajuste sutil no tamanho do título para caber no novo banner */
 .hero-content h1 {
     font-size: 2rem; /* Reduzido de 3.5rem para caber na arte menor */
-    color: #6db3f8; 
+    color: #ffffff; 
     margin-bottom: 5px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
 
 /* --- ANIMAÇÕES DE REVELAÇÃO (Scroll Reveal) --- */
@@ -281,24 +263,22 @@ nav li {
 
 /* --- SEÇÃO DE DESTAQUES --- */
 .featured-section {
-    padding: 60px 5%;
+    padding: 20px 5%; /* Reduzido de 60px para trazer os produtos para cima */
     background: transparent;            
 }
 .featured-section h2 {
     text-align: center;
     font-size: 2.5rem;
     color: #493f64;
-    margin-bottom: 40px;
+    margin-bottom: 20px; /* Reduzido o espaço entre o título e os produtos */
 }
 .featured-products {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Alterado para 4 produtos por linha */
-    gap: 100px;
-    padding: 0 5%;
-    max-width: 1200px; /* Reduzido para os cards não ficarem espremidos */
-    padding: 0 5%;
-    max-width: 1200px;
-    margin: 0 auto;  
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 30px 5%;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 /* Estilos Compartilhados para Cards (Destaques e Produtos) */
@@ -312,26 +292,43 @@ nav li {
     display: flex;
     position: relative;
     flex-direction: column;
+    background: #fff;
+}
+
+.featured-products .product-card {
+    width: 100%;
+    max-width: 100%; 
 }
 
 .product-info {     
-    padding: 100px; 
+    padding: 15px; 
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    flex: 1;
+    justify-content: space-between;
 }
 .product-info h3 {
-    font-size: 1.3rem;
-    color: #493f64;     
-    margin: 0;
+    font-size: 1.1rem;
+    color: #21a6ff;
+    margin-bottom: 12px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 700;
+    line-height: 1.2;
 }
 .product-info p {
-    font-size: 1.4rem;
-    color: #1d2935;
-    font-weight: 800;
-    margin: 0;
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
 }       
 
 /* --- PÁGINA DE PRODUTOS --- */
@@ -546,7 +543,7 @@ nav li {
 
 /* Preço em destaque */
 .preco {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color:#2e5e8f;
     font-weight: 800;
     margin-top: auto;
@@ -992,7 +989,7 @@ footer {
         top: 0;
         z-index: 1000;
         background: #fff;
-        box-shadow: 0   
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .logo-img {
@@ -1057,9 +1054,19 @@ footer {
     }
 
     .featured-products {
-        grid-template-columns: 1fr; /* Exibe um produto por vez, ocupando a largura total */
-        gap: 20px;
-        padding: 0 15px;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+        padding: 20px 10px;
+    }
+
+    .featured-products .product-card {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .product-info {
+        padding: 12px;
     }
 
     .hero-content p {
@@ -1288,8 +1295,12 @@ footer {
 /* --- CONFIGURAÇÃO PARA TABLETS (Entre 769px e 1024px) --- */
 @media (min-width: 769px) and (max-width: 1024px) {
     .produtos, .featured-products {
-        grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px;
+    }
+    .produtos { /* Aplica grid de 2 colunas apenas para a página de produtos */
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .featured-products { /* Garante que featured-products continue com flexbox para rolagem */
     }
 
     .card, .product-card {

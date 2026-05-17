@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (carrinho.length === 1) {
                 window.open(carrinho[0].link, '_blank');
             } else {
-                const linkLojaML = "https://www.mercadolivre.com.br/"; 
+                const linkLojaML = "https://lista.mercadolivre.com.br/_CustId_529386639?item_id=MLB6778651416&category_id=MLB28129&seller_id=529386639&client=recoview-selleritems&recos_listing=true"; 
                 alert("Para múltiplos itens, você será redirecionado para nossa loja oficial no Mercado Livre!");
                 window.open(linkLojaML, '_blank');
             }
@@ -215,6 +215,17 @@ document.addEventListener('DOMContentLoaded', () => {
         buscaInput.addEventListener('input', (e) => {
             termoBusca = e.target.value.toLowerCase();
             aplicarFiltros();
+        });
+    }
+
+    // --- 7.5 PAUSAR ANIMAÇÃO DO CARROSSEL NO HOVER ---
+    const slidesContainer = document.querySelector('.slides');
+    if (slidesContainer) {
+        slidesContainer.addEventListener('mouseenter', () => {
+            slidesContainer.style.animationPlayState = 'paused';
+        });
+        slidesContainer.addEventListener('mouseleave', () => {
+            slidesContainer.style.animationPlayState = 'running';
         });
     }
 
