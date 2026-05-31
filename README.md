@@ -1,6 +1,6 @@
 # 🍬 Cotton Candy B.B - Home
 
-Uma página web responsiva e charmosa desenvolvida para a vitrine de roupas infantis **Cotton Candy B.B**. O projeto simula uma e-commerce com foco em experiência de usuário (UX), trazendo um design delicado e funcionalidades interativas como menu mobile e carrinho de compras lateral.
+Uma página web responsiva e charmosa desenvolvida para a vitrine de roupas infantis **Cotton Candy B.B**. O projeto simula um e-commerce com foco em experiência de usuário (UX), trazendo um design delicado e funcionalidades interativas como menu mobile e carrinho de compras lateral.
 
 ---
 
@@ -20,9 +20,10 @@ Uma página web responsiva e charmosa desenvolvida para a vitrine de roupas infa
 O projeto foi construído utilizando tecnologias web fundamentais (Vanilla Stack):
 
 *   **HTML5:** Estruturação semântica e acessível da página.
-*   **CSS3:** Estilização visual, layout responsivo e transições (arquivo `style.css`).
-*   **JavaScript (ES6):** Manipulação do DOM para o funcionamento do menu mobile e gerenciamento do carrinho (arquivo `script.js`).
+*   **CSS3:** Estilização visual, layout responsivo e transições (`style.css`).
+*   **JavaScript (ES6):** Manipulação do DOM para o funcionamento do menu mobile e gerenciamento do carrinho (`script.js`).
 
+---
 
 ## 📁 Estrutura de Arquivos
 
